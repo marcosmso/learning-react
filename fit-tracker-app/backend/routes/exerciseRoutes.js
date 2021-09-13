@@ -1,5 +1,6 @@
-const router = require('express').Router();
-let Exercise = require("../models/exercise");
+import express from 'express'
+const router = express.Router();
+import Exercise from "../models/exerciseModel.js";
 
 router.route("/").get((req, res) => {
     Exercise.find()
@@ -52,4 +53,4 @@ router.route('/update/:id').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-module.exports = router;
+export default router;

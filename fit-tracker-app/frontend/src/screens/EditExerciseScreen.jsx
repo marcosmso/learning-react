@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-function CreateExercise () {
+function EditExercise(props) {
 
   const [users, setUsers ] = useState([]);
 
@@ -13,7 +13,22 @@ function CreateExercise () {
     duration: 0,
     date: new Date(),
   });
-  
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/exercises/'+ props.match.params.id)
+      .then(response => {
+        setState({
+          username: response.data.username,
+          description: response.data.description,
+          duration: response.data.duration,
+          date: new Date(response.data.date)
+        })   
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }, []) 
+
   useEffect(()=>{ 
     axios.get('http://localhost:5000/users/')
       .then(response => {
@@ -52,7 +67,7 @@ function CreateExercise () {
 
     console.log(exercise);
 
-    axios.post('http://localhost:5000/exercises/add', exercise)
+    axios.post('http://localhost:5000/exercises/update/' + props.match.params.id, exercise)
       .then(res => console.log(res.data));
 
     window.location = '/';
@@ -60,11 +75,12 @@ function CreateExercise () {
 
   return (
     <div>
-      <h3>Create New Exercise Log</h3>
+      <h3>Edit Exercise Log</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group"> 
           <label>Username: </label>
           <select
+              required
               name="username"
               className="form-control"
               value={state.username}
@@ -76,20 +92,23 @@ function CreateExercise () {
               }
           </select>
         </div>
+
         <div className="form-group"> 
           <label>Description: </label>
-          <input type="text"
+          <input  type="text"
+              required
               name="description"
               className="form-control"
               value={state.description}
               onChange={handleChange}
               />
         </div>
+
         <div className="form-group">
           <label>Duration (in minutes): </label>
           <input 
-              type="text" 
-              name="duration" 
+              type="text"
+              name="duration"
               className="form-control"
               value={state.duration}
               onChange={handleChange}
@@ -108,12 +127,13 @@ function CreateExercise () {
         </div>
 
         <div className="form-group">
-          <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+          <input type="submit" value="Edit Exercise Log" className="btn btn-primary" />
         </div>
 
       </form>
     </div>
   )
+  
 }
 
-export default CreateExercise;
+export default EditExercise;
