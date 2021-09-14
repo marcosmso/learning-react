@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Container } from 'react-bootstrap'
 
 import Header from "./components/Header"
+import Footer from "./components/Footer"
 import ExercisesList from "./components/ExercisesList";
-import EditExercise from "./components/EditExercise";
+import EditExerciseScreen from "./screens/EditExerciseScreen";
 import CreateExercise from "./components/CreateExercise";
-import CreateUser from "./components/CreateUser";
-import "bootstrap/dist/css/bootstrap.min.css";
+import CreateUserScreen from "./screens/CreateUserScreen";
 
 function App() {
   return (
@@ -15,10 +15,11 @@ function App() {
       <Header />
       <Container> 
         <Route path="/" exact component={ExercisesList} />
-        <Route path="/edit/:id" component={EditExercise} />
+        <Route path="/edit/:id" component={EditExerciseScreen} />
         <Route path="/create" component={CreateExercise} />
-        <Route path="/user" component={CreateUser} />
+        <Route path="/user" component={CreateUserScreen} />
       </Container>
+      <Footer />
     </Router>
   );
 }
