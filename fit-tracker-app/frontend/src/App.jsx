@@ -4,9 +4,9 @@ import { Container } from 'react-bootstrap'
 
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import ExercisesList from "./components/ExercisesList";
+import ExercisesListScreen from "./screens/ExercisesListScreen";
 import EditExerciseScreen from "./screens/EditExerciseScreen";
-import CreateExercise from "./components/CreateExercise";
+import CreateExerciseScreen from "./screens/CreateExerciseScreen";
 import CreateUserScreen from "./screens/CreateUserScreen";
 
 function App() {
@@ -14,9 +14,9 @@ function App() {
     <Router>
       <Header />
       <Container> 
-        <Route path="/" exact component={ExercisesList} />
+        <Route path="/" exact component={ExercisesListScreen} />
         <Route path="/edit/:id" component={EditExerciseScreen} />
-        <Route path="/create" component={CreateExercise} />
+        <Route path="/create" component={CreateExerciseScreen} />
         <Route path="/user" component={CreateUserScreen} />
       </Container>
       <Footer />
